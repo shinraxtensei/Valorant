@@ -10,6 +10,6 @@ Future<Agent> fetchAgents() async {
   if (response.statusCode == 200) {
     return Agent.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
-    throw Exception('Failed to load album');
+    throw Exception('Failed to load Agents');
   }
 }
