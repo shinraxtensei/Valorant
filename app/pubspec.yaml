@@ -1,4 +1,4 @@
-name: app
+name: valorant
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -30,7 +30,9 @@ environment:
 dependencies:
   logger: ^2.0.2+1
   flutter_dotenv: ^5.1.0
-
+  flutter_launcher_icons: ^0.13.1
+  hexcolor: ^3.0.1
+  flutter_svg: ^2.0.9
   flutter:
     sdk: flutter
 
@@ -64,7 +66,16 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/app/
+    - assets/launchIcon/
     - .env
+
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/launchIcon/jetNose.jpeg"
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
