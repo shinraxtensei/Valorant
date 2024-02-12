@@ -48,13 +48,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   collapseMode: CollapseMode.parallax,
                   stretchModes: const [StretchMode.zoomBackground],
                   background: Container(
-                    decoration:  BoxDecoration(
+                    decoration: BoxDecoration(
                       color: HexColor('#18273c'),
                     ),
                     child: Column(
                       children: [
                         Image.asset(
-                          'assets/app/valorant_logo.png',
+                          'assets/images/valorant_logo.png',
                           height: 200,
                           width: 200,
                         ),
@@ -101,7 +101,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             ];
           },
           body: TabBarView(
-            
             controller: _tabController,
             children: const [CustomCard(), Placeholder(), Placeholder()],
           ),

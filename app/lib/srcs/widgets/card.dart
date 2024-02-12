@@ -17,7 +17,7 @@ class CustomCard extends StatelessWidget {
                 child: Container(
                   height: 310,
                   width: 220,
-                  color: HexColor('#d56324ff'),
+                  color: HexColor('#3a7233ff'),
                 ),
               ),
             ),
