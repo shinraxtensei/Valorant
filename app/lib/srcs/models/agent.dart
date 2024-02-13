@@ -40,7 +40,7 @@ class Agent {
   final bool? isPlayableCharacter;
   final bool? isAvailableForTest;
   final bool? isBaseContent;
-  final Role? role; // Use the Role class for the role property
+  final Role? role;
   final dynamic recruitmentData;
   final List<Ability>? abilities;
   final dynamic voiceLine;

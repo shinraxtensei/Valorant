@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:valorant/srcs/models/agent.dart';
+import 'package:valorant/srcs/models/gun.dart';
 import 'package:valorant/srcs/services/agents.dart';
+import 'package:valorant/srcs/services/guns.dart';
 import 'package:valorant/srcs/widgets/agent_card.dart';
+import 'package:valorant/srcs/widgets/gun_card.dart';
 import 'package:valorant/srcs/widgets/map_card.dart';
 import 'package:valorant/srcs/widgets/scrollable_cards.dart';
 
@@ -20,17 +23,18 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late Future<List<Agent>> futureAgent;
   late Future<List<Mape>> futureMap;
+  late Future<List<Gun>> futureGun;
+
+  List<String> tabNames = const ['Agents', 'Maps', 'Arsenal'];
 
   List<Agent> agents = [];
   List<Mape> maps = [];
+  List<Gun> guns = [];
 
   Future<void> _loadAgents() async {
     try {
       futureAgent = fetchAgents();
       agents = await futureAgent;
-      for (var element in agents) {
-        debugPrint('Agent: ${element.displayName}');
-      }
       agents.removeWhere((element) =>
           element.displayName == 'Sova' && element.fullPortrait == null);
       setState(() {});
@@ -43,9 +47,16 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     try {
       futureMap = fetchMaps();
       maps = await futureMap;
-      for (var element in maps) {
-        debugPrint('maps: ${element.displayName}');
-      }
+      setState(() {});
+    } catch (error) {
+      debugPrint('Error: $error');
+    }
+  }
+
+  Future _loadGuns() async {
+    try {
+      futureGun = fetchGuns();
+      guns = await futureGun;
       setState(() {});
     } catch (error) {
       debugPrint('Error: $error');
@@ -60,6 +71,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     if (mounted) {
       _loadAgents();
       _loadMaps();
+      _loadGuns();
     }
   }
 
@@ -97,10 +109,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     ),
                     child: Column(
                       children: [
-                        Image.asset(
-                          'assets/images/valorant_logo.png',
-                          height: 200,
-                          width: 200,
+                        Hero(
+                          tag: 'valorantLogo',
+                          child: Image.asset(
+                            'assets/images/valorant_logo.png',
+                            height: 200,
+                            width: 200,
+                          ),
                         ),
                         Center(
                           child: RichText(
@@ -112,10 +127,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                         fontSize: 24.0,
                                         fontWeight: FontWeight.bold,
                                       ),
-                              children: const [
+                              children: [
                                 TextSpan(
-                                  text: 'Agents',
-                                  style: TextStyle(
+                                  text: tabNames[_tabController.index],
+                                  style: const TextStyle(
                                     color: Color(0xFFff4458),
                                     fontSize: 24.0,
                                     fontWeight: FontWeight.bold,
@@ -158,7 +173,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     (Mape map) => mapCard(map),
                   )
                 : const Placeholder(),
-            const Placeholder(),
+            guns.isNotEmpty
+                ? scrollableCards<Gun>(
+                    guns,
+                    (Gun gun) => gunCard(gun),
+                  )
+                : const Placeholder(),
           ]),
         ),
       ),

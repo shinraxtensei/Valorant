@@ -10,7 +10,7 @@ var colorScheme =  ColorScheme(
     brightness: Brightness.dark,
     primary: const Color(0xFFff4458),
     onPrimary: const Color(0xFFFFFFFF),
-    secondary: const Color(0xFF18273c),
+    secondary: const Color(0xFF19283d),
     onSecondary: const Color(0xFFFFFFFF),
     error: const Color(0xffcf6679),
     onError: const Color(0xFFFFFFFF),
