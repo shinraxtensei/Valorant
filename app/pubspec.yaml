@@ -33,6 +33,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   hexcolor: ^3.0.1
   flutter_svg: ^2.0.9
+  flutter_shake_animated: ^0.0.5
   flutter:
     sdk: flutter
 

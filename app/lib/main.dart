@@ -8,8 +8,12 @@ final logger = Logger();
 
 Future<void> main() async {
   await dotenv.load();
+
   logger.d('API_BASE_URL: ${dotenv.env['API_BASE_URL']}');
-  runApp(const MyApp());
+
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,13 +22,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Valorant',
-        // theme: ThemeData(
-        //     useMaterial3: true,
-        //     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)
-        //         .copyWith(background: Colors.blueGrey),
-        //     primaryColor: HexColor('#101823')),,
-        theme: ThemeData(colorScheme: colorScheme),
+        theme: ThemeData(colorScheme: colorScheme ),
         home: const Scaffold(body: Home()));
   }
 }

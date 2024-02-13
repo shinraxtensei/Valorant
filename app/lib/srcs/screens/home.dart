@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:valorant/srcs/widgets/card.dart';
+import 'package:valorant/srcs/models/agent.dart';
+import 'package:valorant/srcs/services/agents.dart';
+import 'package:valorant/srcs/widgets/agent_card.dart';
+import 'package:valorant/srcs/widgets/map_card.dart';
+import 'package:valorant/srcs/widgets/scrollable_cards.dart';
+
+import '../models/map.dart';
+import '../services/maps.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -11,12 +18,49 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  late Future<List<Agent>> futureAgent;
+  late Future<List<Mape>> futureMap;
+
+  List<Agent> agents = [];
+  List<Mape> maps = [];
+
+  Future<void> _loadAgents() async {
+    try {
+      futureAgent = fetchAgents();
+      agents = await futureAgent;
+      for (var element in agents) {
+        debugPrint('Agent: ${element.displayName}');
+      }
+      agents.removeWhere((element) =>
+          element.displayName == 'Sova' && element.fullPortrait == null);
+      setState(() {});
+    } catch (error) {
+      debugPrint('Error: $error');
+    }
+  }
+
+  Future _loadMaps() async {
+    try {
+      futureMap = fetchMaps();
+      maps = await futureMap;
+      for (var element in maps) {
+        debugPrint('maps: ${element.displayName}');
+      }
+      setState(() {});
+    } catch (error) {
+      debugPrint('Error: $error');
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_handleTabSelection);
+    if (mounted) {
+      _loadAgents();
+      _loadMaps();
+    }
   }
 
   @override
@@ -88,6 +132,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
               SliverToBoxAdapter(
                 child: TabBar(
+                  dividerColor: Colors.grey,
                   indicatorColor: const Color(0xFFff4458),
                   indicatorPadding: const EdgeInsets.only(top: 8),
                   controller: _tabController,
@@ -100,10 +145,21 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
             ];
           },
-          body: TabBarView(
-            controller: _tabController,
-            children: const [CustomCard(), Placeholder(), Placeholder()],
-          ),
+          body: TabBarView(controller: _tabController, children: [
+            agents.isNotEmpty
+                ? scrollableCards<Agent>(
+                    agents,
+                    (Agent agent) => agentCard(agent),
+                  )
+                : const Placeholder(),
+            maps.isNotEmpty
+                ? scrollableCards<Mape>(
+                    maps,
+                    (Mape map) => mapCard(map),
+                  )
+                : const Placeholder(),
+            const Placeholder(),
+          ]),
         ),
       ),
     );
