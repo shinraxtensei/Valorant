@@ -60,13 +60,17 @@ class AgentScreen extends StatelessWidget {
                               end: Alignment.bottomRight,
                               colors: [
                                 HexColor(agent.backgroundGradientColors?[0] ??
-                                    '#808080'),
+                                        '#808080')
+                                    .withOpacity(0.8),
                                 HexColor(agent.backgroundGradientColors?[1] ??
-                                    '#808080'),
+                                        '#808080')
+                                    .withOpacity(0.7),
                                 HexColor(agent.backgroundGradientColors?[2] ??
-                                    '#808080'),
+                                        '#808080')
+                                    .withOpacity(0.6),
                                 HexColor(agent.backgroundGradientColors?[3] ??
-                                    '#808080'),
+                                        '#808080')
+                                    .withOpacity(0.5),
                               ],
                             ),
                           ),
@@ -118,20 +122,12 @@ class AgentScreen extends StatelessWidget {
                               height: 10,
                             ),
                           ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Color.fromRGBO(255, 253, 253, 0.3),
-                              ),
-                              child: Text(
-                                agent.role?.displayName ?? 'No Role',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                          Text(
+                            agent.role?.displayName ?? 'No Role',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              // fontWeight: FontWeight.bold,
                             ),
                           )
                         ]),
