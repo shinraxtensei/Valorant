@@ -58,8 +58,11 @@ class Agent {
       fullPortraitV2: json['fullPortraitV2'],
       killfeedPortrait: json['killfeedPortrait'],
       background: json['background'],
-      backgroundGradientColors:
-          List<String>.from(json['backgroundGradientColors']),
+      backgroundGradientColors: List<String>.from(
+        json['backgroundGradientColors'].map<String>(
+          (color) => '#ff${color.substring(0, 6)}',
+        ),
+      ),
       assetPath: json['assetPath'],
       isFullPortraitRightFacing: json['isFullPortraitRightFacing'],
       isPlayableCharacter: json['isPlayableCharacter'],

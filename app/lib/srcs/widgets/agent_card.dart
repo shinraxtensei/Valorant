@@ -34,13 +34,13 @@ Widget agentCard(Agent agent) {
                               end: Alignment.bottomRight,
                               colors: [
                                 HexColor(agent.backgroundGradientColors?[0] ??
-                                    '#808080'),
+                                    '#ffffff'),
                                 HexColor(agent.backgroundGradientColors?[1] ??
-                                    '#808080'),
+                                    '#ffffff'),
                                 HexColor(agent.backgroundGradientColors?[2] ??
-                                    '#808080'),
+                                    '#ffffff'),
                                 HexColor(agent.backgroundGradientColors?[3] ??
-                                    '#808080'),
+                                    '#ffffff'),
                               ],
                             ),
                           ),
@@ -68,34 +68,30 @@ Widget agentCard(Agent agent) {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: HexColor('#00FFFFFF'),
+                        // color: HexColor('#ffffff').withOpacity(0.1),
                       ),
-                      child: Center(
-                        child: Column(children: [
-                          Text(
-                            agent.displayName ?? 'No Name',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                      child: Column(children: [
+                        Text(
+                          agent.displayName ?? 'No Name',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 60),
-                            child: Divider(
-                              color: Colors.white,
-                              height: 10,
-                            ),
+                          softWrap: false,
+                        ),
+                        const Divider(
+                          color: Colors.white,
+                          height: 10,
+                        ),
+                        Text(
+                          agent.role?.displayName ?? 'No Role',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
                           ),
-                          Text(
-                            agent.role?.displayName ?? 'No Role',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ]),
-                      ),
+                        ),
+                      ]),
                     ),
                   ),
                 ],
@@ -223,7 +219,7 @@ class SpecialAbilities extends StatelessWidget {
                         ability.displayName ?? 'No Name',
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
